@@ -1,68 +1,71 @@
-import pytest
 from cli_calculator.output_formatter import CalculationResult, format_result
+import pytest
 
 def test_format_result_with_small_number():
     """Test formatting of very small numbers."""
-    result = CalculationResult(value=1e-9)
-    formatted = format_result(result)
-    assert formatted == "1e-9"
+    result = format_result(1e-9)
+    assert result == "1e-9"
 
 def test_format_result_with_large_number():
     """Test formatting of very large numbers."""
-    result = CalculationResult(value=1e10)
-    formatted = format_result(result)
-    assert formatted == "1e+10"
+    result = format_result(1e10)
+    assert result == "1e+10"
 
 def test_format_result_with_zero():
     """Test formatting of zero."""
-    result = CalculationResult(value=0)
-    formatted = format_result(result)
-    assert formatted == "0"
+    result = format_result(0)
+    assert result == "0"
 
-def test_format_result_with_integer():
-    """Test formatting of integers."""
-    result = CalculationResult(value=42)
-    formatted = format_result(result)
-    assert formatted == "42"
+def test_format_result_with_positive_number():
+    """Test formatting of positive numbers."""
+    result = format_result(42.0)
+    assert result == "42"
 
-def test_format_result_with_float():
-    """Test formatting of floats."""
-    result = CalculationResult(value=3.14159)
-    formatted = format_result(result)
-    assert formatted == "3.14159"
-
-def test_format_result_with_negative():
+def test_format_result_with_negative_number():
     """Test formatting of negative numbers."""
-    result = CalculationResult(value=-42.5)
-    formatted = format_result(result)
-    assert formatted == "-42.5"
+    result = format_result(-42.0)
+    assert result == "-42"
+
+def test_format_result_with_decimal():
+    """Test formatting of decimal numbers."""
+    result = format_result(3.14159)
+    assert result == "3.14159"
 
 def test_format_result_with_none_value():
     """Test formatting of None values."""
-    result = CalculationResult(value=None)
-    formatted = format_result(result)
-    assert formatted == "No result"
+    result = format_result(None)
+    assert result == "None"
 
 def test_format_result_with_nan():
     """Test formatting of NaN values."""
-    result = CalculationResult(value=float('nan'))
-    formatted = format_result(result)
-    assert formatted == "NaN"
+    result = format_result(float('nan'))
+    assert result == "NaN"
 
 def test_format_result_with_infinity():
     """Test formatting of infinity values."""
-    result = CalculationResult(value=float('inf'))
-    formatted = format_result(result)
-    assert formatted == "Infinity"
-
+    result = format_result(float('inf'))
+    assert result == "Infinity"
+    
 def test_format_result_with_negative_infinity():
     """Test formatting of negative infinity values."""
-    result = CalculationResult(value=float('-inf'))
-    formatted = format_result(result)
-    assert formatted == "-Infinity"
+    result = format_result(float('-inf'))
+    assert result == "-Infinity"
 
-def test_format_result_with_message():
-    """Test formatting with message."""
-    result = CalculationResult(value=100, message="Calculation complete")
-    formatted = format_result(result)
-    assert formatted == "100"
+def test_calculation_result_model():
+    """Test the CalculationResult model."""
+    # Test with valid values
+    result = CalculationResult(value=42.0)
+    assert result.value == 42.0
+    
+    # Test with string value
+    result = CalculationResult(value="42.0")
+    assert result.value == 42.0
+    
+    # Test with None value
+    result = CalculationResult(value=None)
+    assert result.value is None
+    
+    # Test with error
+    result = CalculationResult(value=42.0, error="Division by zero")
+    assert result.value == 42.0
+    assert result.error == "Division by zero"

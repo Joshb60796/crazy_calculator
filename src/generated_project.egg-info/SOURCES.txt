@@ -1,6 +1,7 @@
 pyproject.toml
 src/cli_calculator/__init__.py
 src/cli_calculator/calculator_core.py
+src/cli_calculator/constants.py
 src/cli_calculator/input_handler.py
 src/cli_calculator/main.py
 src/cli_calculator/memory_manager.py

@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Created constants module with CalculatorConstants Pydantic model containing pi and e constants. Added global instance CALCULATOR_CONSTANTS. Implemented proper immutability with frozen=True.
+- Initial implementation of constants module with CalculatorConstants Pydantic model and supporting functions for accessing mathematical constants like pi, e, tau, and golden ratio.
 - Created output_formatter module with:
 - FormattedResult Pydantic model for structured output
 - format_result function for regular calculation results
